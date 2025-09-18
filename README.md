@@ -1,77 +1,80 @@
 # GovConnect
 
-GovConnect is a PHP & MySQL-based web application designed to provide a platform for government-related services. It offers features like user authentication, dashboards, and role-based access for managing and accessing government-related information.
-
-## Features
-- **User Registration & Login**: Secure authentication system for users.
-- **Dashboard**: Personalized dashboard after login.
-- **Role Management**: Admin and normal user roles.
-- **Data Management**: Store and manage records in a MySQL database.
-- **Responsive Design**: Works across different devices.
-
-## Installation & Setup
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/govconnect.git
-Move the project folder to the XAMPP htdocs directory:
-
-makefile
-Copy code
-C:\xampp\htdocs\govconnect
-Start Apache and MySQL from the XAMPP Control Panel.
-
-Set up the database:
-
-Open phpMyAdmin: http://localhost/phpmyadmin
-
-Create a database named: govconnect
-
-Import the file: govconnect.sql
-
-Configure the database connection:
-
-Open config.php and update with your MySQL credentials:
-
-php
-Copy code
-<?php
-$host = "localhost";
-$user = "root";        // Default XAMPP username
-$pass = "";            // Default XAMPP password is empty
-$db   = "govconnect";  // Database name
-
-$conn = new mysqli($host, $user, $pass, $db);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-?>
-Run the project:
-
-Open browser and visit: http://localhost/govconnect
-
-Technologies Used
-PHP for backend logic
-
-MySQL for database management
-
-phpMyAdmin for database setup
-
-HTML, CSS, JS for frontend
-
-Contributors
-Md. Injabin Alam (Project Lead & Developer)
-
-License
-This project is open-source under the MIT License.
-
-Feel free to contribute and improve the project!
-
-yaml
-Copy code
+GovConnect is a **PHP & MySQL-based web application** designed to provide a platform for government-related services.  
+This repository includes all necessary PHP files and a SQL file to set up the database.
 
 ---
 
-✅ This matches the **NextNest format** exactly: short intro, features, installation, tech stack, contributors, license.  
+## 📌 Requirements
 
-Do you also want me to include a **Default Credentials** section (like `admin / admin123`) just bef
+Before running this project, make sure you have the following installed:
+
+- [XAMPP](https://www.apachefriends.org/) (with PHP 8.x and Apache)
+- MySQL 8.0 (bundled with XAMPP or standalone installation)
+- A web browser (Chrome, Firefox, Edge, etc.)
+- Git (optional, for cloning the repo)
+
+---
+
+## ⚙️ Installation Guide
+
+Follow these steps to install and run the project on your system:
+
+
+1. Download or Clone the Project
+   - Clone using Git:
+     git clone https://github.com/your-username/govconnect.git
+   - OR download as ZIP and extract.
+   - Move the folder into your XAMPP htdocs directory:
+     C:\xampp\htdocs\govconnect
+
+2. Start Apache and MySQL
+   - Open XAMPP Control Panel
+   - Start Apache
+   - Start MySQL
+   - Both should show green indicators
+
+3. Import the Database
+   - Open browser and go to: http://localhost/phpmyadmin
+   - Click Databases → create a database named: govconnect
+   - Select govconnect
+   - Go to Import → Choose File → select govconnect.sql
+   - Click Go to import
+
+4. Configure Database Connection
+   - Open the file: govconnect/config.php
+   - Update with your MySQL credentials:
+
+     <?php
+     $host = "localhost";
+     $user = "root";        // Default XAMPP username
+     $pass = "";            // Default XAMPP password is empty
+     $db   = "govconnect";  // Database name
+
+     $conn = new mysqli($host, $user, $pass, $db);
+
+     if ($conn->connect_error) {
+         die("Connection failed: " . $conn->connect_error);
+     }
+     ?>
+
+5. Run the Project
+   - Open browser and visit: http://localhost/govconnect
+---
+
+## 📂 Project Structure
+govconnect/
+│
+├── config.php         # Database connection
+├── index.php          # Homepage
+├── dashboard.php      # Dashboard (after login)
+├── login.php          # Login page
+├── register.php       # Registration page
+├── logout.php         # Logout functionality
+├── assets/            # CSS, JS, Images
+│   ├── css/
+│   ├── js/
+│   └── images/
+├── govconnect.sql     # Database file
+└── README.md          # Documentation
+
