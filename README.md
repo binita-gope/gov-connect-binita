@@ -65,16 +65,28 @@ Follow these steps to install and run the project on your system:
 ## 📂 Project Structure
 govconnect/
 │
+
 ├── config.php         # Database connection
+
 ├── index.php          # Homepage
+
 ├── dashboard.php      # Dashboard (after login)
+
 ├── login.php          # Login page
+
 ├── register.php       # Registration page
+
 ├── logout.php         # Logout functionality
+
 ├── assets/            # CSS, JS, Images
+
 │   ├── css/
+
 │   ├── js/
+
 │   └── images/
+
 ├── govconnect.sql     # Database file
+
 └── README.md          # Documentation
 
