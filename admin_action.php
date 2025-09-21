@@ -17,14 +17,11 @@ if(!isset($_GET['id']) || !isset($_GET['action'])) {
 $problem_id = intval($_GET['id']);
 $action = $_GET['action'];
 
-// Get the corresponding status IDs from the database
-$status_query = $mysqli->prepare("SELECT status_id, status_name FROM problem_statuses WHERE status_name IN ('Verified', 'Rejected')");
-$status_query->execute();
-$status_result = $status_query->get_result();
-$status_ids = [];
-while($row = $status_result->fetch_assoc()) {
-    $status_ids[$row['status_name']] = $row['status_id'];
-}
+// Get the corresponding status IDs based on status table
+$status_ids = [
+    'Verified' => 2,  // In Progress
+    'Rejected' => 5   // Requires Follow-up
+];
 
 // Validate problem exists and is in Pending state
 $check_stmt = $mysqli->prepare("SELECT status_id FROM problems WHERE problem_id = ?");

@@ -105,6 +105,42 @@ a.button.assign {
 a.button.assign:hover {
     background: #d68910;
 }
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    display: inline-block;
+    text-align: center;
+}
+.status-pending {
+    background-color: #f1c40f;
+    color: #000;
+}
+.status-verified {
+    background-color: #2ecc71;
+    color: #fff;
+}
+.status-rejected {
+    background-color: #e74c3c;
+    color: #fff;
+}
+.status-assigned {
+    background-color: #3498db;
+    color: #fff;
+}
+.status-resolved {
+    background-color: #27ae60;
+    color: #fff;
+}
+tr.status-rejected td {
+    background-color: #ffebee;
+}
+tr.status-verified td {
+    background-color: #e8f5e9;
+}
+tr.status-pending td {
+    background-color: #fff8e1;
+}
 </style>
 </head>
 <body>
@@ -127,24 +163,34 @@ a.button.assign:hover {
 <th>Actions</th>
 </tr>
 
-<?php while($row = $result->fetch_assoc()): ?>
-<tr>
+<?php while($row = $result->fetch_assoc()): 
+    $status_class = strtolower($row['status_name']);
+?>
+<tr class="status-<?php echo $status_class; ?>">
 <td><?php echo $row['problem_id']; ?></td>
 <td><?php echo $row['user_name']; ?></td>
 <td><?php echo ucfirst($row['category_name']); ?></td>
 <td><?php echo $row['description']; ?></td>
 <td><?php echo $row['location_name']; ?></td>
 <td><?php echo ucfirst($row['priority_name']); ?></td>
-<td><?php echo ucfirst($row['status_name']); ?></td>
+<td><span class="status-badge status-<?php echo $status_class; ?>"><?php echo ucfirst($row['status_name']); ?></span></td>
 <td><?php echo htmlspecialchars($row['suggestion'] ?? ''); ?></td>
 <td>
     <div class="action-buttons">
-    <?php if($row['status_name']=='Pending'): ?>
-        <a href="admin_action.php?id=<?php echo $row['problem_id']; ?>&action=verify" class="button verify">Verify</a>
-        <a href="admin_action.php?id=<?php echo $row['problem_id']; ?>&action=reject" class="button reject">Reject</a>
-    <?php elseif($row['status_name']=='Verified'): ?>
-        <a href="admin_action.php?id=<?php echo $row['problem_id']; ?>&action=assign" class="button assign">Assign</a>
-    <?php endif; ?>
+    <?php switch($row['status_name']) {
+        case 'Pending': ?>
+            <a href="admin_action.php?id=<?php echo $row['problem_id']; ?>&action=verify" class="button verify">Verify</a>
+            <a href="admin_action.php?id=<?php echo $row['problem_id']; ?>&action=reject" class="button reject">Reject</a>
+            <?php break;
+        case 'Verified': ?>
+            <a href="admin_action.php?id=<?php echo $row['problem_id']; ?>&action=assign" class="button assign">Assign</a>
+            <?php break;
+        case 'Rejected': ?>
+            <span class="status-badge status-rejected">Rejected</span>
+            <?php break;
+        default: ?>
+            <span class="status-badge status-<?php echo $status_class; ?>"><?php echo ucfirst($row['status_name']); ?></span>
+    <?php } ?>
     </div>
 </td>
 </tr>
